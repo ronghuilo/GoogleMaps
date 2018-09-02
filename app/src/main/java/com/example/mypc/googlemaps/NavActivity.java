@@ -12,16 +12,16 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
-public class MainActivity extends AppCompatActivity {
+public class NavActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "NavActivity";
 
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.nav_button);
 
         if(isServicesOK()){
             init();
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         btnMap.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                Intent intent = new Intent(NavActivity.this, MapActivity.class);
                 startActivity(intent);
             }
         });
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean isServicesOK(){
        Log.d(TAG, "isServicesOK: checking google services version");
 
-       int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
+       int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(NavActivity.this);
 
        if(available == ConnectionResult.SUCCESS){
            //EVERYTHING IS FINE AND THE USER CAN MAKE MAP REQUEST
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
        else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
            //AN ERROR OCCURED BUT WE CAN RESOLVE IT
            Log.d(TAG, "isServicesOK: an error occured but we can fix it");
-           Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MainActivity.this,available, ERROR_DIALOG_REQUEST );
+           Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(NavActivity.this,available, ERROR_DIALOG_REQUEST );
            dialog.show();
        }
        else{
